@@ -1,0 +1,16 @@
+Sign-In with Monero (SIWM)
+Copyright 2026 Kenneth Mayle
+https://5pm.io · https://kwm59.io
+
+Created by Kenneth Mayle for 5pm.io.
+Source: https://github.com/happyendings59/siwm
+
+This product includes software developed by Kenneth Mayle (https://5pm.io).
+Licensed under the Apache License, Version 2.0. Copies and adaptations (including
+versions for other coins) must keep this NOTICE file, as section 4(d) of the
+license requires.
+
+Third-party code used (not included in this repository, installed separately):
+  @noble/curves and @noble/hashes, Copyright (c) Paul Miller, MIT License
+  @supabase/supabase-js, Copyright (c) Supabase, MIT License
+  nodemailer, Copyright (c) Andris Reinman, MIT-0 License

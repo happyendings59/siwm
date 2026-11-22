@@ -1,0 +1,23 @@
+{
+  "name": "siwm",
+  "version": "0.1.0",
+  "description": "Sign-In with Monero (SIWM): wallet login for websites. No email, no password.",
+  "license": "Apache-2.0",
+  "author": "Kenneth Mayle (https://5pm.io)",
+  "homepage": "https://github.com/happyendings59/siwm",
+  "repository": { "type": "git", "url": "https://github.com/happyendings59/siwm.git" },
+  "keywords": ["monero", "xmr", "login", "authentication", "sign-in", "wallet", "privacy", "supabase", "cake-wallet"],
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "bundle": "esbuild client/auth.js --bundle --format=esm --minify --target=es2020 --legal-comments=inline --outfile=dist/siwm.js && node -e \"require('fs').copyFileSync('client/siwm.css','dist/siwm.css')\"",
+    "test": "node --test test/*.test.mjs"
+  },
+  "engines": { "node": ">=18" },
+  "devDependencies": {
+    "@noble/curves": "2.4.0",
+    "@noble/hashes": "2.4.0",
+    "@supabase/supabase-js": "^2.118.0",
+    "esbuild": "^0.25.12"
+  }
+}

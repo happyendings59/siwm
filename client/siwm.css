@@ -1,0 +1,89 @@
+/* Sign-In with Monero (SIWM) · Copyright 2026 Kenneth Mayle · 5pm.io · kwm59.io · Apache-2.0
+   Sign-in / account pages. Uses your site's colour variables if it defines them (--bg, --fg, --accent, ...);
+   the defaults below have zero specificity, so any :root rule of yours wins. */
+:where(:root) { --bg: #ffffff; --bg2: #f6f6f4; --bg3: #ecebe7; --fg: #15161a; --muted: #5f6270; --dim: #8a8c96;
+  --line: #dddcd6; --accent: #f26822; --danger: #b3261e;
+  --serif: Georgia, "Iowan Old Style", serif; --mono: ui-monospace, Menlo, Consolas, monospace; }
+@media (prefers-color-scheme: dark) {
+  :where(:root) { --bg: #0e0f13; --bg2: #16181f; --bg3: #1e2029; --fg: #ecebe6; --muted: #9a9caa; --dim: #6b6e7c;
+    --line: #2a2d38; --accent: #ff7a33; --danger: #ff6b5e; }
+}
+body:has(> main.auth) { margin: 0; background: var(--bg); color: var(--fg);
+  font: 16px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+.auth, .auth *, dialog.wallet-confirm, dialog.wallet-confirm * { box-sizing: border-box; }
+.auth a { color: var(--fg); }
+.auth { max-width: 560px; margin: 0 auto; padding: 32px 20px 64px; }
+.auth h1 { font-family: var(--serif); font-size: clamp(1.8rem, 5vw, 2.4rem); margin: 0 0 1.2rem; }
+.auth .back { margin: 0 0 1.6rem; font-size: .95rem; }
+.auth .back a { color: var(--muted); text-decoration: none; }
+.auth .card { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; padding: 18px; margin: 0 0 16px;
+  display: flex; flex-direction: column; gap: 10px; }
+.auth .card[hidden], [hidden] { display: none !important; }
+.auth label, .auth .label { font-weight: 700; margin: 4px 0 0; }
+.auth input, .auth textarea { width: 100%; background: var(--bg); color: var(--fg); border: 1px solid var(--line);
+  border-radius: 8px; padding: 10px 12px; font: inherit; }
+.auth textarea { resize: vertical; font-family: var(--mono); font-size: .85rem; }
+.auth .hint { color: var(--muted); font-size: .9rem; margin: 0; }
+.auth .hint code, .auth code { font-family: var(--mono); font-size: .85em; }
+.auth .error { color: var(--danger); font-weight: 700; margin: 0; }
+.auth button { background: var(--accent); color: var(--bg); border: 0; border-radius: 999px; padding: 10px 18px;
+  font: inherit; font-weight: 700; cursor: pointer; align-self: flex-start; }
+.auth button:disabled { opacity: .5; cursor: wait; }
+.auth button.small { padding: 7px 12px; font-size: .85rem; flex: none; }
+.auth button.link { text-align: left; background: none; color: var(--muted); padding: 4px 0; font-weight: 400; text-decoration: underline; }
+.auth .message-row { display: flex; gap: 10px; align-items: flex-start; }
+.auth .message-row code { flex: 1; background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px;
+  word-break: break-all; }
+.auth .wallets { list-style: none; margin: 0; padding: 0; }
+.auth .wallets li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--line); }
+.auth .wallets .chain { color: var(--muted); }
+.auth .get-wallet { border-style: dashed; }
+.auth .get-wallet a { font-weight: 700; }
+.badge { font-family: var(--mono); font-size: .75rem; border: 1px solid var(--accent); color: var(--accent); border-radius: 999px; padding: 2px 8px; vertical-align: middle; }
+.auth.wide { max-width: 720px; }
+.auth select { width: 100%; background: var(--bg); color: var(--fg); border: 1px solid var(--line); border-radius: 8px; padding: 10px 12px; font: inherit; }
+.auth details { display: flex; flex-direction: column; gap: 10px; }
+.auth details[open] > *:not(summary) { margin-top: 8px; }
+.auth summary { cursor: pointer; }
+.auth .card.inner { margin: 0; padding: 0; border: 0; background: none; }
+.auth label.check { display: flex; gap: 8px; align-items: flex-start; font-weight: 400; }
+.auth label.check input { width: auto; margin-top: 4px; }
+.auth .wallets code { font-family: var(--mono); font-size: .8rem; color: var(--muted); text-align: right; }
+.spinner { display: inline-block; width: .7em; height: .7em; border-radius: 50%; background: var(--accent); margin-right: .4em; animation: kitpulse 1s infinite ease-in-out; }
+@keyframes kitpulse { 50% { opacity: .2; } }
+.secs { color: var(--dim); }
+.works-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; margin: 0 0 16px; }
+.work { background: var(--bg2); border: 1px solid var(--line); border-radius: 12px; overflow: hidden; display: flex; flex-direction: column; }
+.work img { width: 100%; aspect-ratio: 1; object-fit: cover; background: var(--bg); }
+.work .body { padding: 12px; display: flex; flex-direction: column; gap: 6px; flex: 1; }
+.work h3 { margin: 0; font-size: 1rem; }
+.work .by { color: var(--muted); font-size: .85rem; margin: 0; }
+.work .meta { color: var(--muted); font-size: .85rem; margin: 0; }
+.work button { margin-top: auto; }
+.work details.terms summary { font-size: .85rem; color: var(--accent); }
+.work details.terms p { margin: 6px 0 0; }
+.work button.resale { background: var(--bg3, #1a1d2a); color: var(--fg); border: 1px solid var(--line); }
+.auth .wallets li.license { flex-direction: column; align-items: stretch; }
+.auth .wallets li.license > span:first-child { color: var(--fg); }
+.auth .payee input:first-child { flex: 1; }
+.auth .big-code { font-size: 1.15rem; letter-spacing: .08em; text-align: center; color: var(--accent); }
+.auth #rec-setup, .auth #rec-manage { display: flex; flex-direction: column; gap: 10px; }
+.auth #email-choose { flex-wrap: wrap; }
+.auth #search-box { margin: 0 0 6px; }
+.auth #search-box input { flex: 1; }
+.auth .small-print { font-size: .8rem; color: var(--dim); }
+
+/* authority portal + transparency log */
+.auth .ok { color: #1a7f37; font-weight: 600; }
+.auth .log-wrap { overflow-x: auto; }
+.auth table.log { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.auth table.log th, .auth table.log td { text-align: left; padding: 6px 8px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.auth table.log th { font-weight: 600; white-space: nowrap; }
+.auth .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+@media (max-width: 560px) { .auth .grid2 { grid-template-columns: 1fr; } }
+
+/* the small credit line (credit.js) */
+.siwm-credit { margin: 28px 0 0; text-align: center; font-size: .75rem; color: var(--dim); letter-spacing: .01em; }
+.siwm-credit a { color: inherit; text-decoration: none; border-bottom: 1px dotted currentColor; }
+.siwm-credit a:hover { color: var(--muted); }
+dialog .siwm-credit { margin-top: 14px; }

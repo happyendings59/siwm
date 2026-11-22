@@ -1,0 +1,5 @@
+settings.js
+supabase/functions/_shared/settings.ts
+node_modules/
+dist/
+.env*

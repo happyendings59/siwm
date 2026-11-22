@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Your account · Example</title>
+  <meta name="robots" content="noindex">
+  <!-- Example page for Sign-In with Monero (SIWM) · https://github.com/happyendings59/siwm · Apache-2.0 -->
+  <link rel="stylesheet" href="/siwm/siwm.css">
+</head>
+<body data-page="account">
+  <main class="auth">
+    <p class="back"><a href="/">&larr; Back to the site</a></p>
+    <p id="gate" class="hint">Checking your account…</p>
+    <div id="account" hidden>
+      <h1>Your account</h1>
+
+      <section class="card" id="recover-note" hidden>
+        <p class="label">Account recovery</p>
+        <p class="hint">You came in with your backup email. To finish, set up a new Monero wallet (Cake: create a new one) and switch this account to it below. After that you sign in with the new wallet as usual.</p>
+      </section>
+
+      <div id="account-body">
+
+      <section class="card" id="wallets-card">
+        <p class="label">Linked wallets</p>
+        <p class="hint">We never store your full address or your email, only a short label so you can recognise them. You type them in when they're needed.</p>
+        <ul id="wallets" class="wallets"></ul>
+      </section>
+
+      <section class="card" id="replace-card">
+        <p class="label">New Monero wallet</p>
+        <p class="hint">Lost your device or wallet? Recover with your backup email and recovery code (on the sign-in page), set up a new wallet (Cake: create a new one), and switch this account to its address. Your old address stops working for sign-in. This moves your account only: coins in a lost wallet can only come back from its seed phrase.</p>
+        <label for="replace-address">New Monero address</label>
+        <div class="message-row">
+          <input id="replace-address" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="4… or 8…">
+          <button type="button" id="replace-start" class="small">Get code</button>
+        </div>
+        <div id="replace-sign" hidden>
+          <p class="hint">Sign this in the NEW wallet (Cake: Settings → Other → Sign / Verify), then paste the signature.</p>
+          <div class="message-row">
+            <code id="replace-message"></code>
+            <button type="button" id="replace-copy" class="small">Copy</button>
+          </div>
+          <textarea id="replace-signature" rows="3" spellcheck="false" autocapitalize="off" placeholder="SigV2…"></textarea>
+          <button type="button" id="replace-confirm" class="small">Switch to this wallet</button>
+        </div>
+        <p id="replace-status" class="hint" hidden></p>
+        <p id="replace-error" class="error" hidden></p>
+      </section>
+
+      <section class="card" id="email-card">
+        <p class="label">Backup email + recovery code <span class="hint">(optional)</span></p>
+        <p class="hint">For recovery only, if you lose your Monero wallet. You still sign in with Monero. Recovery needs <strong>both</strong> your backup email (we send a code) <strong>and</strong> your recovery code, which you write down once. Someone who gets into your inbox, a hacker or anyone else, can't take your account without the recovery code. One email can back up several accounts. Never shown publicly, never used for newsletters.</p>
+        <p id="email-current" class="hint"></p>
+
+        <div id="rec-setup" hidden>
+          <label for="email-new">Email</label>
+          <div class="message-row">
+            <input id="email-new" type="email" autocomplete="email" placeholder="you@example.com">
+            <button type="button" id="email-save" class="small">Send code</button>
+          </div>
+          <label for="e-delay">Waiting period before a recovery takes effect</label>
+          <select id="e-delay">
+            <option value="0">None: recover right away</option>
+            <option value="3">3 days</option>
+            <option value="7">7 days</option>
+            <option value="30">30 days</option>
+          </select>
+          <p class="hint">With a waiting period, if someone ever starts a recovery, signing in with your Monero wallet during the wait cancels it.</p>
+          <div id="email-code-row" class="message-row" hidden>
+            <input id="email-code" inputmode="numeric" autocomplete="one-time-code" placeholder="Code from the email">
+            <button type="button" id="email-confirm" class="small">Confirm</button>
+          </div>
+        </div>
+
+        <div id="rec-code-box" class="card inner" hidden>
+          <p class="label">Your recovery code: save it now</p>
+          <div class="message-row">
+            <code id="rec-code" class="big-code"></code>
+            <button type="button" id="rec-copy" class="small">Copy</button>
+          </div>
+          <button type="button" id="rec-download" class="link">Download as a text file</button>
+          <p class="hint">Letters only (no I or O). Write it down or print it and keep it offline (not in the same email inbox). It's shown only this once; we keep only a fingerprint of it. Lost it? Make a new one here while you can still sign in.</p>
+          <label class="check"><input type="checkbox" id="rec-saved"> I saved my recovery code</label>
+          <button type="button" id="rec-done" class="small" disabled>Done</button>
+        </div>
+
+        <div id="rec-manage" hidden>
+          <label for="e-delay-now">Waiting period</label>
+          <div class="message-row">
+            <select id="e-delay-now">
+              <option value="0">None</option>
+              <option value="3">3 days</option>
+              <option value="7">7 days</option>
+              <option value="30">30 days</option>
+            </select>
+            <button type="button" id="e-delay-save" class="small">Save</button>
+          </div>
+          <label class="check"><input type="checkbox" id="email-login"> Also let me sign in with just an email code (everyday sign-in, not recovery). Less safe: anyone with your inbox could sign in. Off is recommended.</label>
+          <p class="hint"><strong>Your recovery code</strong> is what you'll need, together with this email, to get back in if you lose your Monero wallet (sign-in page → "Lost your Monero wallet?"). Don't have it written down? Make one now, while you can still sign in.</p>
+          <div class="message-row">
+            <button type="button" id="rec-new" class="small">Make my recovery code</button>
+            <button type="button" id="rec-change" class="small">Change email</button>
+          </div>
+          <button type="button" id="email-remove" class="link">Remove backup email</button>
+        </div>
+        <p id="email-status" class="hint" hidden></p>
+        <p id="email-error" class="error" hidden></p>
+      </section>
+
+      </div>
+
+      <section class="card" id="delete-card">
+        <p class="label">Delete my account</p>
+        <p class="hint">Removes your account, its wallet link, backup email and recovery code. It can't be undone. You can sign up again later with the same wallet as a brand-new account. For your safety you'll also confirm with your wallet.</p>
+        <button type="button" id="delete-open" class="link">Delete my account…</button>
+        <div id="delete-confirm" hidden>
+          <label for="delete-address">Type your sign-in Monero address to confirm</label>
+          <input id="delete-address" spellcheck="false" autocapitalize="off" autocomplete="off" placeholder="4… or 8…">
+          <button type="button" id="delete-go" class="small">Delete my account for good</button>
+          <button type="button" id="delete-cancel" class="link">Cancel</button>
+        </div>
+        <p id="delete-error" class="error" hidden></p>
+      </section>
+
+
+      <button type="button" id="sign-out" class="link">Sign out</button>
+    </div>
+  </main>
+  <script type="module" src="/siwm/siwm.js"></script>
+</body>
+</html>
