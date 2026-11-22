@@ -112,12 +112,17 @@ What this repo does about it now:
 - Switching the sign-in wallet, changing recovery settings, or deleting the account needs a second signature whose
   message names the exact change. A relayed sign-in alone can't lock the holder out.
 
-**Recommended fix (not built yet):** confirm sign-ins over a separate private channel such as
+**SIWM is a building block, not a complete security system.** Like any tool, it can be used well or badly. On its
+own it's a convenient, private login. For anything that matters, pair it with a **compensating control**: a
+separate check that covers the gap.
+
+**Recommended compensating control (not built yet):** confirm sign-ins over a separate private channel such as
 [SimpleX](https://simplex.chat). For example, a SimpleX bot sends the holder "Approve sign-in to yoursite.com?",
 or delivers a one-time code, so a relayed signature alone isn't enough. I recommend something like this but
 haven't had the time to make it work. Contributions are welcome.
 
-Passkeys (WebAuthn) are another option. The browser ties them to the real site, so they can't be relayed.
+Other compensating controls: passkeys (WebAuthn), which the browser ties to the real site so they can't be relayed; the
+recovery waiting period; or limits on what a fresh session can do.
 See [SECURITY.md](SECURITY.md).
 
 ## Other notes
