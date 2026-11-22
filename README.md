@@ -92,6 +92,28 @@ changes, email + recovery code) works the same for any wallet that can sign a me
 Cardano and others can be added with one verify function each. Adaptations are welcome. Please keep the
 `NOTICE` file (the license requires it) and say where yours came from.
 
+## The bigger idea (not built here)
+
+This repo is a login. The theory behind it goes further: **prove who you are by signing with a key you hold, not
+by handing over a number someone can copy.** No email address, no phone number, just an internet connection
+and a public address.
+
+Some places it could go (ideas only, none of this is in the code):
+
+- **Retire the phone number as an ID.** Phone numbers and emails get stolen through SIM swaps, leaked databases,
+  and inboxes taken over. A public address you sign with can't be "ported" to someone else.
+- **Stopping card fraud.** A card number works for anyone who copies it. A payment that needs a fresh signature from
+  the holder's key, approved with a push from a known source (for example a bank's SimpleX contact), is useless to
+  someone who only stole the numbers.
+- **Accounts and itemizing.** One Monero wallet can give out many subaddresses that outsiders can't link to each
+  other. A business could use one per customer, supplier, or expense category and see what came in where, which is
+  natural itemizing without a bank holding the ledger.
+- **Two channels together: the "Fort Knox" version.** Sign with your wallet, then approve a push from a known
+  source over SimpleX. An attacker would need your wallet **and** your private SimpleX contact. The code here
+  doesn't work that way yet, but the same pattern fits many other uses.
+
+If you build any of these, keep the NOTICE and let me know through [5pm.io](https://5pm.io).
+
 ## Credit
 
 Sign-In with Monero was created by **Kenneth Mayle** ([5pm.io](https://5pm.io) · [kwm59.io](https://kwm59.io)).
