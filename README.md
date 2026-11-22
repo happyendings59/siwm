@@ -102,9 +102,13 @@ The sign-in and account pages show a small, quiet line at the bottom: *"Sign-In 
 
 ## Known issue: man-in-the-middle (relay) attack
 
-**There is a man-in-the-middle attack vector.** Wallets don't check which website asked for a signature. A
-look-alike site can pass a real sign-in message from your site to the user, collect their signature, and send
-it on to your site, which gets the attacker a session.
+**It works.** The signature check is solid, and nobody can sign in as someone else without that person's wallet.
+
+**But there is one man-in-the-middle attack vector, and it takes malice.** Someone has to build a look-alike site
+on purpose and trick a user into signing there. Wallets don't check which website asked for a signature, so that
+fake site can pass your real sign-in message to the user, collect their signature, and send it on to your site,
+which gets the attacker a session. It can't happen by accident, but used alone, without a compensating control,
+the login is open to it.
 
 What this repo does about it now:
 - The message names your site and says "Only sign this on https://yoursite.com".
