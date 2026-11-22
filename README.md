@@ -100,12 +100,29 @@ The sign-in and account pages show a small, quiet line at the bottom: *"Sign-In 
 5pm.io"*. The license doesn't require you to keep it, and you can turn it off with `credit: false` in
 `settings.js`. But if this saved you time, keeping it, or linking back somewhere on your site, is appreciated.
 
-## Safety notes
+## Known issue: man-in-the-middle (relay) attack
 
-- Wallets don't check which website asked for a signature. The message warns people to sign only on your
-  site, and sensitive changes need a second signature that names the change. Passkeys (WebAuthn) block this
-  kind of phishing in the browser itself, so consider offering them too. See [SECURITY.md](SECURITY.md).
-- This code hasn't had an independent security audit yet.
+**There is a man-in-the-middle attack vector.** Wallets don't check which website asked for a signature. A
+look-alike site can pass a real sign-in message from your site to the user, collect their signature, and send
+it on to your site, which gets the attacker a session.
+
+What this repo does about it now:
+- The message names your site and says "Only sign this on https://yoursite.com".
+- Each code works once, expires in 10 minutes, and only works for one address.
+- Switching the sign-in wallet, changing recovery settings, or deleting the account needs a second signature whose
+  message names the exact change. A relayed sign-in alone can't lock the holder out.
+
+**Recommended fix (not built yet):** confirm sign-ins over a separate private channel such as
+[SimpleX](https://simplex.chat). For example, a SimpleX bot sends the holder "Approve sign-in to yoursite.com?",
+or delivers a one-time code, so a relayed signature alone isn't enough. I recommend something like this but
+haven't had the time to make it work. Contributions are welcome.
+
+Passkeys (WebAuthn) are another option. The browser ties them to the real site, so they can't be relayed.
+See [SECURITY.md](SECURITY.md).
+
+## Other notes
+
+- This code hasn't had an independent security audit.
 - If your site takes payments or handles regulated data, have a lawyer review it. This isn't legal advice.
 
 ## License

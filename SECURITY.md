@@ -19,8 +19,11 @@ You'll get an answer, and credit in the fix notes if you'd like it.
 
 ## Known limits
 
-- Wallets don't check which website asked for a signature. The message says "Only sign this on https://<site>",
-  and sensitive changes need a second signature that names the change, but a person who signs a sign-in message on
-  a look-alike site can still give that site one session. Passkeys (WebAuthn) don't have this weakness; consider
-  offering them alongside.
+- **Man-in-the-middle (relay) attack vector.** Wallets don't check which website asked for a signature, so a
+  look-alike site can relay a real sign-in message and the person's signature and get one session. The message says
+  "Only sign this on https://<site>", and sensitive changes need a second signature that names the change, so a
+  relayed session can't take over the account. It can still act as the person until it signs out.
+  Recommended fix, not built yet: confirm sign-ins over a separate private channel such as SimpleX (a bot that asks
+  the holder to approve, or that delivers a one-time code). Passkeys (WebAuthn) also avoid this, because the
+  browser ties them to the real site.
 - The code has not had an independent security audit yet.
